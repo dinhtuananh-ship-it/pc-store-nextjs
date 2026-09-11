@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PC Store - Cửa hàng linh kiện máy tính
 
-## Getting Started
+Website bán linh kiện PC (CPU, VGA, RAM, Mainboard, SSD, màn hình...) xây dựng bằng
+**Next.js 16 (App Router) + TypeScript + Tailwind CSS + Prisma + PostgreSQL (Neon) + Cloudinary**.
 
-First, run the development server:
+## Tính năng
+
+**Khách hàng (`/`):**
+
+- Trang chủ: hero, danh mục, sản phẩm nổi bật, thương hiệu
+- Danh sách sản phẩm: tìm kiếm, lọc theo danh mục/thương hiệu, sắp xếp
+- Chi tiết sản phẩm: thư viện ảnh, chọn số lượng, thêm giỏ / mua ngay, sản phẩm liên quan
+- Giỏ hàng: tăng/giảm số lượng, xóa item, xóa tất cả, tóm tắt đơn hàng
+- Thanh toán (giả lập): điền địa chỉ, chọn COD / chuyển khoản / MoMo
+  (BANK/MoMo tự ghi nhận đã thanh toán ngay, COD thì thanh toán khi nhận hàng)
+- Đơn hàng của tôi: theo dõi trạng thái (Chờ xác nhận → Đã thanh toán →
+  Đang giao → Hoàn thành), thanh toán ngay đơn COD/chờ, hủy đơn chờ xác nhận
+- Đăng ký / Đăng nhập (tự động đăng nhập sau khi đăng ký)
+
+**Quản trị (`/admin`, chỉ role Admin):**
+
+- Dashboard thống kê: danh mục, thương hiệu, sản phẩm, người dùng,
+  tổng doanh thu, doanh thu hôm nay, tổng đơn hàng
+- Quản lý đơn hàng: lọc theo trạng thái, xem chi tiết (sản phẩm, địa chỉ,
+  thanh toán), cập nhật trạng thái (hủy đơn tự hoàn kho)
+- CRUD sản phẩm (upload nhiều ảnh lên Cloudinary)
+- CRUD danh mục, thương hiệu (chặn xóa khi còn sản phẩm)
+- Xem danh sách người dùng
+
+**API (`/api/*`):** `auth/login`, `auth/register`, `products`, `categories`,
+`brands`, `product-images`, `cart`, `cart/clear`, `cart/items/[id]`,
+`checkout` (đặt hàng từ giỏ), `orders` (đơn của tôi), `orders/[id]`
+(chi tiết / thanh toán giả lập / hủy / admin đổi trạng thái),
+`admin/orders`, `admin/finance`, `upload` (Cloudinary),
+`dashboard/statistics`, `users`.
+
+Kiến trúc backend: Route Handler → Controller → Service → Repository → Prisma.
+
+## Cài đặt
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tạo file `.env`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+DATABASE_URL="postgresql://user:password@host:5432/db?sslmode=require"
+CLOUDINARY_CLOUD_NAME=xxx
+CLOUDINARY_API_KEY=xxx
+CLOUDINARY_API_SECRET=xxx
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Đồng bộ database + seed dữ liệu mẫu:
 
-## Learn More
+```bash
+npx prisma db push
+npm run seed
+```
 
-To learn more about Next.js, take a look at the following resources:
+Tài khoản admin mẫu sau khi seed: `admin@pcstore.vn` / `admin123`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Chạy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev      # dev: http://localhost:3000
+npm run build    # kiểm tra production build
+npm start        # chạy production
+```
