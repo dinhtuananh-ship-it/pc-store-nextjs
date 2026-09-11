@@ -48,13 +48,13 @@ export default function Footer() {
           <h4 className="font-semibold text-white">Liên hệ</h4>
           <ul className="mt-3 space-y-2 text-sm">
             <li className="flex items-center gap-2">
-              <MapPin size={16} /> 123 Nguyễn Huệ, Q.1, TP.HCM
+              <MapPin size={16} /> Phường Việt Hưng, Hà Nội
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={16} /> 0901 234 567
+              <Phone size={16} /> 0362045301
             </li>
             <li className="flex items-center gap-2">
-              <Mail size={16} /> hotro@pcstore.vn
+              <Mail size={16} /> khanguyenan892@gmail.com
             </li>
           </ul>
         </div>

@@ -84,10 +84,6 @@ export default function LoginPage() {
             Đăng ký ngay
           </Link>
         </p>
-
-        <p className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-500">
-          Tài khoản admin demo: <b>admin@pcstore.vn</b> / <b>admin123</b>
-        </p>
       </div>
     </div>
   );
